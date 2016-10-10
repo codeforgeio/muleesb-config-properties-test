@@ -9,8 +9,20 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     	
-    <context:property-placeholder location="mule-flow-configuration-testing.properties" />
+	<spring:bean id="appCtxProv" class="org.kkssrc.mule.cloud.config.client.ApplicationContextProvider"/>
+	<spring:bean id="clientProperties" class="org.springframework.cloud.config.client.ConfigClientProperties">
+	  <spring:property name="name" value="mule-flow-configuration-testing"/>
+	  <spring:property name="profile" value="default"/>
+	  <spring:property name="label" value="develop"/>
+	  <spring:property name="uri" value="http://localhost:8888"/>
+	</spring:bean>
+	<spring:bean id="muleCloudProperties" class="org.kkssrc.mule.cloud.config.client.MuleCloudConfigProperties">
+	  <spring:constructor-arg ref="clientProperties"/>
+	  <spring:constructor-arg ref="appCtxProv"/>
+	</spring:bean>
 
+	<context:property-placeholder properties-ref="muleCloudProperties" />
+	
     <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="${http.listen.port}" doc:name="HTTP Listener Configuration"/>
     <flow name="mule-flow-configuration-testingFlow">
         <http:listener config-ref="HTTP_Listener_Configuration" path="/mule-flow-config-test" doc:name="HTTP" allowedMethods="GET"/>

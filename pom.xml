@@ -124,6 +124,13 @@
 			<version>${mule.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- Mule spring cloud config client -->
+		<dependency>
+			<groupId>org.kkssrc.spring</groupId>
+  			<artifactId>mule-cloud-config-client</artifactId>
+  			<version>1.0</version>
+		</dependency>
+		
 		<!-- for testing -->
 		<dependency>
 			<groupId>org.mule.tests</groupId>
@@ -146,6 +153,16 @@
             <url>http://repository.mulesoft.org/releases/</url>
             <layout>default</layout>
         </repository>
+        
+	    <repository>
+	        <id>YOUR-PROJECT-NAME-mvn-repo</id>
+	        <url>https://raw.github.com/kkssrc/mvn-repo</url>
+	        <snapshots>
+	            <enabled>true</enabled>
+	            <updatePolicy>always</updatePolicy>
+	        </snapshots>
+	    </repository>
+        
     </repositories>
     <pluginRepositories>
         <pluginRepository>
